@@ -812,7 +812,7 @@ h3 {
 
   .section {
     width: min(100% - 24px, 1180px);
-    padding: 64px 0;
+    padding: 64px 8px;
   }
 
   .service-card,
@@ -837,35 +837,29 @@ h3 {
 .contact-copy {
     position: relative;
 }
+
 .founder-card {
     margin-top: 40px;
     padding: 8px;
 
     background:
-      radial-gradient(
-        circle at top right,
-        rgba(31, 102, 209, 0.35),
-        transparent 40%
-      ),
-      linear-gradient(
-        135deg,
-        #0d1833,
-        #132447,
-        #0d1833
-      );
+        radial-gradient(
+            circle at top right,
+            rgba(31, 102, 209, 0.35),
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #0d1833,
+            #132447,
+            #0d1833
+        );
+
     border-radius: 20px;
 
     box-shadow:
         0 15px 35px rgba(13, 24, 51, 0.08),
         0 5px 15px rgba(13, 24, 51, 0.04);
-}
-
-.founder-title {
-    margin: 0 0 24px 0;
-    font-size: 1.4rem;
-    font-weight: 700;
-
-    color: rgba(255, 255, 255, 0.78);
 }
 
 .founder-body {
@@ -901,8 +895,26 @@ h3 {
     color: rgba(255, 255, 255, 0.78);
 }
 
+.founder-brand {
+    width: 28px;
+    height: 28px;
+
+    margin-top: 8px;
+
+    object-fit: contain;
+}
+
 .founder-content {
     flex: 1;
+}
+
+.founder-title {
+    margin: 0 0 24px 0;
+
+    font-size: 1.4rem;
+    font-weight: 700;
+
+    color: rgba(255, 255, 255, 0.78);
 }
 
 .founder-content p {
@@ -915,11 +927,35 @@ h3 {
     color: rgba(255, 255, 255, 0.78);
 }
 
-.founder-brand {
-    width: 28px;
-    height: 28px;
+/* ===== RESPONSIVE ===== */
 
-    margin-top: 8px;
+@media (max-width: 768px) {
 
-    object-fit: contain;
+    .founder-body {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .founder-profile {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .founder-photo {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .founder-name {
+        text-align: center;
+    }
+
+    .founder-brand {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
 }

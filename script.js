@@ -61,56 +61,71 @@ function drawDataField(time = 0) {
 
     ctx.beginPath();
     ctx.arc(x, y, point.radius, 0, Math.PI * 2);
-    ctx.fillStyle = index % 3 === 0 ? "#21a7b8" : index % 3 === 1 ? "#1f66d1" : "#4fac72";
+    ctx.fillStyle =
+      index % 3 === 0
+        ? "#21a7b8"
+        : index % 3 === 1
+        ? "#1f66d1"
+        : "#4fac72";
     ctx.fill();
   });
 
-  ctx.beginPath();
-  ctx.moveTo(56, 252);
-  [120, 196, 272, 348, 424, 500].forEach((x, index) => {
-    const y = 242 - index * 18 + Math.sin(time / 520 + index) * 14;
-    ctx.lineTo(x, y);
-  });
-  ctx.strokeStyle = "#e2b84b";
-  ctx.lineWidth = 5;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.stroke();
+  // Solo dibujar la línea amarilla en escritorio
+  if (window.innerWidth > 768) {
+    ctx.beginPath();
+    ctx.moveTo(56, 262);
+
+    [120, 196, 272, 348, 424, 500].forEach((x, index) => {
+      const y = 252 - index * 18 + Math.sin(time / 520 + index) * 14;
+      ctx.lineTo(x, y);
+    });
+
+    ctx.strokeStyle = "#e2b84b";
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke();
+  }
 
   requestAnimationFrame(drawDataField);
 }
 
 requestAnimationFrame(drawDataField);
 
+// Animación de contadores
 const counters = document.querySelectorAll("[data-count]");
-const counterObserver = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
 
-      const element = entry.target;
-      const target = Number(element.dataset.count);
-      const duration = 1200;
-      const start = performance.now();
+if (counters.length > 0) {
+  const counterObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-      function tick(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        element.textContent = Math.round(target * eased);
+        const element = entry.target;
+        const target = Number(element.dataset.count);
+        const duration = 1200;
+        const start = performance.now();
 
-        if (progress < 1) {
-          requestAnimationFrame(tick);
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+
+          element.textContent = Math.round(target * eased);
+
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          }
         }
-      }
 
-      requestAnimationFrame(tick);
-      observer.unobserve(element);
-    });
-  },
-  { threshold: 0.5 }
-);
+        requestAnimationFrame(tick);
+        observer.unobserve(element);
+      });
+    },
+    { threshold: 0.5 }
+  );
 
-counters.forEach((counter) => counterObserver.observe(counter));
+  counters.forEach((counter) => counterObserver.observe(counter));
+}
 
 const contactForm = document.getElementById("contactForm");
 const statusMessage = contactForm.querySelector(".form-status");
