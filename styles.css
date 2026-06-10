@@ -434,7 +434,7 @@ h3 {
 .section {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 88px 0;
+  padding: 88px 8px;
   scroll-margin-top: 64px;
 }
 
