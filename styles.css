@@ -456,6 +456,10 @@ h3 {
   border-radius: 8px;
   background: var(--surface);
   box-shadow: 0 10px 28px rgba(13, 24, 51, 0.06);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .service-icon {
@@ -507,6 +511,21 @@ h3 {
   flex: 0 0 9px;
   border-radius: 50%;
   background: var(--amber);
+}
+
+.service-more {
+  align-self: flex-end;
+  margin-top: auto;
+  padding-top: 22px;
+  color: var(--blue);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.service-more:hover,
+.service-more:focus-visible {
+  color: var(--navy);
+  text-decoration: underline;
 }
 
 .method {

@@ -27,6 +27,9 @@ navLinks.addEventListener("click", (event) => {
 
 const canvas = document.getElementById("dataCanvas");
 const ctx = canvas.getContext("2d");
+const canvasHost = canvas.parentElement;
+let canvasWidth = 560;
+let canvasHeight = 380;
 const points = Array.from({ length: 28 }, (_, index) => ({
   x: 42 + (index % 7) * 76,
   y: 72 + Math.floor(index / 7) * 66,
@@ -34,13 +37,35 @@ const points = Array.from({ length: 28 }, (_, index) => ({
   phase: index * 0.42,
 }));
 
+function resizeCanvas() {
+  const rect = canvasHost.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+
+  canvasWidth = Math.max(rect.width, 1);
+  canvasHeight = Math.max(rect.height, 1);
+  canvas.width = Math.round(canvasWidth * dpr);
+  canvas.height = Math.round(canvasHeight * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+if ("ResizeObserver" in window) {
+  new ResizeObserver(resizeCanvas).observe(canvasHost);
+}
+
 function drawDataField(time = 0) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const scaleX = canvasWidth / 560;
+  const scaleY = canvasHeight / 380;
+  const scale = Math.min(scaleX, scaleY);
+
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
   points.forEach((point, index) => {
     const pulse = Math.sin(time / 650 + point.phase) * 10;
-    const x = point.x + Math.cos(time / 1100 + point.phase) * 8;
-    const y = point.y + pulse;
+    const x = (point.x + Math.cos(time / 1100 + point.phase) * 8) * scaleX;
+    const y = (point.y + pulse) * scaleY;
 
     for (let next = index + 1; next < points.length; next += 1) {
       const target = points[next];
@@ -50,8 +75,8 @@ function drawDataField(time = 0) {
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.lineTo(
-          target.x + Math.cos(time / 1100 + target.phase) * 8,
-          target.y + Math.sin(time / 650 + target.phase) * 10
+          (target.x + Math.cos(time / 1100 + target.phase) * 8) * scaleX,
+          (target.y + Math.sin(time / 650 + target.phase) * 10) * scaleY
         );
         ctx.strokeStyle = "rgba(31, 102, 209, 0.18)";
         ctx.lineWidth = 1;
@@ -60,7 +85,7 @@ function drawDataField(time = 0) {
     }
 
     ctx.beginPath();
-    ctx.arc(x, y, point.radius, 0, Math.PI * 2);
+    ctx.arc(x, y, point.radius * scale, 0, Math.PI * 2);
     ctx.fillStyle =
       index % 3 === 0
         ? "#21a7b8"
@@ -73,15 +98,15 @@ function drawDataField(time = 0) {
   // Solo dibujar la línea amarilla en escritorio
   if (window.innerWidth > 768) {
     ctx.beginPath();
-    ctx.moveTo(56, 262);
+    ctx.moveTo(56 * scaleX, 262 * scaleY);
 
     [120, 196, 272, 348, 424, 500].forEach((x, index) => {
       const y = 252 - index * 18 + Math.sin(time / 520 + index) * 14;
-      ctx.lineTo(x, y);
+      ctx.lineTo(x * scaleX, y * scaleY);
     });
 
     ctx.strokeStyle = "#e2b84b";
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 5 * scale;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.stroke();

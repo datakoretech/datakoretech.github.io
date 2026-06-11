@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DataKore | Tablero gerencial de ventas</title>
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <header class="dashboard-header">
+      <a class="brand" href="index.html" aria-label="Volver a DataKore">
+        <img src="datakore-logo-transparent.png" alt="DataKore" />
+      </a>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="index.html#servicios">Servicios</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <main class="dashboard">
+      <section class="dashboard-hero">
+        <div>
+          <p class="eyebrow">Demo de análisis de datos</p>
+          <h1>Tablero gerencial de ventas de vehículos</h1>
+          <p>
+            Explora ventas, unidades, desempeño comercial y distribución regional con
+            filtros dinámicos construidos a partir del archivo ventas_carros.xlsx.
+          </p>
+        </div>
+        <a class="whatsapp-cta" href="https://wa.me/573207712588" target="_blank" rel="noopener">
+          Solicitar un tablero para mi empresa
+        </a>
+      </section>
+
+      <section class="filters" aria-label="Filtros del tablero">
+        <label>
+          Región
+          <select id="filterRegion"></select>
+        </label>
+        <label>
+          Marca
+          <select id="filterMarca"></select>
+        </label>
+        <label>
+          Tipo de vehículo
+          <select id="filterTipo"></select>
+        </label>
+        <label>
+          Vendedor
+          <select id="filterVendedor"></select>
+        </label>
+        <label>
+          Año modelo
+          <select id="filterModelo"></select>
+        </label>
+      </section>
+
+      <section class="kpis" aria-label="Métricas principales">
+        <article class="kpi-card">
+          <span>Ventas totales</span>
+          <strong id="kpiSales">$0</strong>
+        </article>
+        <article class="kpi-card">
+          <span>Unidades vendidas</span>
+          <strong id="kpiUnits">0</strong>
+        </article>
+        <article class="kpi-card">
+          <span>Ticket promedio</span>
+          <strong id="kpiTicket">$0</strong>
+        </article>
+        <article class="kpi-card">
+          <span>Ventas registradas</span>
+          <strong id="kpiOrders">0</strong>
+        </article>
+      </section>
+
+      <section class="chart-grid" aria-label="Gráficos del tablero">
+        <article class="chart-panel wide">
+          <div class="panel-heading chart-heading-with-control">
+            <div>
+              <h2>Ventas en el tiempo</h2>
+              <span>Total venta</span>
+            </div>
+            <label class="time-control">
+              Agrupar por
+              <select id="timeGrain">
+                <option value="year">Año</option>
+                <option value="month" selected>Mes</option>
+                <option value="day">Día</option>
+              </select>
+            </label>
+          </div>
+          <canvas id="lineChart"></canvas>
+        </article>
+
+        <article class="chart-panel">
+          <div class="panel-heading">
+            <h2>Ventas por marca</h2>
+            <span>Total venta</span>
+          </div>
+          <canvas id="brandChart"></canvas>
+        </article>
+
+        <article class="chart-panel">
+          <div class="panel-heading">
+            <h2>Ventas por región</h2>
+            <span>Total venta</span>
+          </div>
+          <canvas id="pieChart"></canvas>
+        </article>
+
+        <article class="chart-panel wide">
+          <div class="panel-heading">
+            <h2>Top vendedores</h2>
+            <span>Total venta</span>
+          </div>
+          <canvas id="sellerChart"></canvas>
+        </article>
+      </section>
+
+      <section class="summary-panel">
+        <div class="panel-heading">
+          <h2>Tabla de resumen</h2>
+          <span>Por región, marca y tipo</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Región</th>
+                <th>Marca</th>
+                <th>Tipo</th>
+                <th>Ventas</th>
+                <th>Unidades</th>
+                <th>Ticket prom.</th>
+              </tr>
+            </thead>
+            <tbody id="summaryBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="dashboard-data.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
