@@ -30,9 +30,9 @@ const ctx = canvas.getContext("2d");
 const canvasHost = canvas.parentElement;
 let canvasWidth = 560;
 let canvasHeight = 380;
-const points = Array.from({ length: 28 }, (_, index) => ({
+const points = Array.from({ length: 42 }, (_, index) => ({
   x: 42 + (index % 7) * 76,
-  y: 72 + Math.floor(index / 7) * 66,
+  y: 6 + Math.floor(index / 7) * 66,
   radius: 3 + (index % 4),
   phase: index * 0.42,
 }));
@@ -69,15 +69,21 @@ function drawDataField(time = 0) {
 
     for (let next = index + 1; next < points.length; next += 1) {
       const target = points[next];
-      const distance = Math.hypot(target.x - point.x, target.y - point.y);
+      const distance = Math.hypot(
+        target.x - point.x,
+        target.y - point.y
+      );
 
-      if (distance < 118) {
+      // Aumenté ligeramente el rango para generar más conexiones
+      if (distance < 140) {
         ctx.beginPath();
         ctx.moveTo(x, y);
+
         ctx.lineTo(
           (target.x + Math.cos(time / 1100 + target.phase) * 8) * scaleX,
           (target.y + Math.sin(time / 650 + target.phase) * 10) * scaleY
         );
+
         ctx.strokeStyle = "rgba(31, 102, 209, 0.18)";
         ctx.lineWidth = 1;
         ctx.stroke();
@@ -86,37 +92,21 @@ function drawDataField(time = 0) {
 
     ctx.beginPath();
     ctx.arc(x, y, point.radius * scale, 0, Math.PI * 2);
+
     ctx.fillStyle =
       index % 3 === 0
         ? "#21a7b8"
         : index % 3 === 1
         ? "#1f66d1"
         : "#4fac72";
+
     ctx.fill();
   });
-
-  // Solo dibujar la línea amarilla en escritorio
-  if (window.innerWidth > 768) {
-    ctx.beginPath();
-    ctx.moveTo(56 * scaleX, 262 * scaleY);
-
-    [120, 196, 272, 348, 424, 500].forEach((x, index) => {
-      const y = 252 - index * 18 + Math.sin(time / 520 + index) * 14;
-      ctx.lineTo(x * scaleX, y * scaleY);
-    });
-
-    ctx.strokeStyle = "#e2b84b";
-    ctx.lineWidth = 5 * scale;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.stroke();
-  }
 
   requestAnimationFrame(drawDataField);
 }
 
 requestAnimationFrame(drawDataField);
-
 // Animación de contadores
 const counters = document.querySelectorAll("[data-count]");
 
