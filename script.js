@@ -144,7 +144,7 @@ if (counters.length > 0) {
 
 const contactForm = document.getElementById("contactForm");
 const statusMessage = contactForm.querySelector(".form-status");
-const whatsappNumber = "573207712588";
+const whatsappNumber = "573174706468";
 
 contactForm.addEventListener("submit", (event) => {
   event.preventDefault();
