@@ -177,7 +177,7 @@ img {
 
 .image-frame {
   min-width: 0;
-  padding: 12px;
+  padding: 0px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #ffffff;

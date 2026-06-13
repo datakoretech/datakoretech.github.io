@@ -178,3 +178,37 @@ contactForm.addEventListener("submit", (event) => {
   statusMessage.classList.remove("error");
   contactForm.reset();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  showProfile("general");
+});
+
+function showProfile(id) {
+
+  // ocultar todas las caras
+  document.querySelectorAll(".profile-face").forEach(face => {
+    face.classList.remove("active");
+  });
+
+  // mostrar la seleccionada
+  const selected = document.getElementById(id);
+
+  if (selected) {
+    selected.classList.add("active");
+  }
+
+  // limpiar fotos activas
+  document.querySelectorAll(".founder-photo").forEach(img => {
+    img.classList.remove("active");
+  });
+
+  // activar foto correspondiente
+  const activePhoto = document.querySelector(
+    `.founder-photo[data-user="${id}"]`
+  );
+
+  if (activePhoto) {
+    activePhoto.classList.add("active");
+  }
+}

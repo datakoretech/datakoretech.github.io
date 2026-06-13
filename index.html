@@ -7,7 +7,7 @@
       name="description"
       content="DataKore ofrece análisis de datos, desarrollo web e inteligencia artificial para convertir información en decisiones de negocio."
     />
-    <title>DataKore | Análisis de datos, web e inteligencia artificial</title>
+    <title>DataKore</title>
     <link rel="icon" href="favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="stylesheet" href="styles.css" />
@@ -204,29 +204,69 @@
             clara para ayudarte a reducir costos, aumentar la productividad y acelerar 
             el crecimiento de tu negocio.
           </p>
-          <div class="founder-card">
-              <div class="founder-body">
+        <div class="founder-card">
 
-                  <div class="founder-profile">
-                    <img src="foto.jpeg" alt="Carlos Betancur" class="founder-photo">
+          <!-- HEADER -->
+          <div class="team-header">
+            <button class="team-title-btn" onclick="showProfile('general')">
+              ¿Quienes somos?
+            </button>
+          </div>
 
-                    <h4 class="founder-name">Carlos Betancur</h4>
-                  </div>
+          <!-- FOTOS -->
+          <div class="founder-selector">
 
-                  <div class="founder-content">
-                    <h2 class="founder-title">Experiencia</h2>
-                      <p>
-                          Especialista en soluciones tecnológicas con más de 5 años de experiencia 
-                          desarrollando proyectos de analítica, automatización, Inteligencia Artificial 
-                          y aplicaciones web. Participo de forma transversal en el diseño de dashboards, 
-                          desarrollo backend y frontend, creando soluciones que impulsan la eficiencia, 
-                          la escalabilidad y el crecimiento empresarial.
-                      </p>
-                  </div>
+            <img
+              src="foto.jpeg"
+              class="founder-photo"
+              data-user="carlos"
+              onclick="showProfile('carlos')"
+              alt="Carlos Betancur"
+            />
 
-              </div>
+            <img
+              src="foto_alex.png"
+              class="founder-photo"
+              data-user="alex"
+              onclick="showProfile('alex')"
+              alt="Alex"
+            />
 
           </div>
+
+          <!-- CONTENIDO -->
+          <div class="profile-container">
+
+            <div class="profile-face active" id="general">
+              <h3>Unimos talento para crear impacto</h3>
+              <p>
+                Somos el resultado de integrar experiencias, visiones y una misma convicción: hacer las cosas mejor. 
+                Nos encontramos cuestionando lo tradicional y decidimos crear una propuesta diferente, 
+                enfocada en entender y generar valor real para nuestros clientes.
+              </p>
+            </div>
+
+            <div class="profile-face" id="carlos">
+              <h3>Carlos Betancur</h3>
+              <p>
+                Especialista en datos con más de 5 años de experiencia en analítica, automatización e inteligencia 
+                artificial, creando soluciones que convierten la información en decisiones estratégicas y generan 
+                valor real para las compañías.
+              </p>
+            </div>
+
+            <div class="profile-face" id="alex">
+              <h3>Alexander Navarro</h3>
+              <p>
+                Administrador de empresas y Magíster en estrategias comerciales apasionado por la tecnología, 
+                enfocado en integrar visión de negocio e innovación digital para desarrollar soluciones que generen valor, 
+                eficiencia y crecimiento sostenible en las organizaciones.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
     </div>
       <section>
         <h2 id="contact-title-two">Contáctanos</h2><br>
@@ -276,7 +316,7 @@
           datakore@proton.me
         </a>
       </div>
-      <p>Desarrollado por Carlos Betancur</p>
+      <p>Desarrollador: C. Betancur & A. Navarro</p>
     </footer>
 
     <script src="script.js"></script>
