@@ -759,7 +759,7 @@ h3 {
   }
 
   .hero-visual {
-    min-height: 430px;
+    min-height: auto;
   }
 
   .service-grid,
@@ -786,7 +786,7 @@ h3 {
   }
 
   .hero {
-    min-height: calc(100vh - 108px);
+    min-height: calc(100dvh - 108px);
     width: min(100% - 24px, 1180px);
     margin-top: 14px;
     padding: 26px;
